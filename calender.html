@@ -15,112 +15,58 @@
   --glass-bg: rgba(255, 255, 255, 0.15);
   --glass-blur: 15px;
   --text-color: #ffffff;
-  --grumpy-color: #a38d7d; /* Grumpy Cat tüy rengi tonu */
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   background: #2c3e50 url('https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?q=80&w=2000') no-repeat center center fixed;
   background-size: cover;
   color: var(--text-color);
-  height: 100vh;
-  overflow: hidden;
+  height: 100vh; overflow: hidden;
 }
 
-.overlay {
-  background: rgba(0, 0, 0, 0.3);
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-}
+.overlay { background: rgba(0, 0, 0, 0.3); height: 100vh; width: 100vw; display: flex; flex-direction: column; }
 
 header {
   padding: env(safe-area-inset-top) 20px 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(20px);
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(20px);
 }
 
-#calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 5px;
-  height: 100%;
-  padding: 10px;
-}
+#calendar { display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(6, 1fr); gap: 5px; height: 100%; padding: 10px; }
 
 .day {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 6px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+  padding: 6px; cursor: pointer; display: flex; flex-direction: column; overflow: hidden;
 }
 
 .day.selected { border: 2px solid white; background: rgba(255,255,255,0.3); }
 
 .inner-event {
-  font-size: 0.65rem;
-  padding: 2px 4px;
-  border-radius: 4px;
-  margin-top: 2px;
-  background: rgba(0,0,0,0.3);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.6rem; padding: 2px 4px; border-radius: 4px; margin-top: 2px;
+  background: rgba(0,0,0,0.3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 .inner-event.completed { text-decoration: line-through; opacity: 0.5; }
 
 .bottom-panel {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(30px);
+  background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(30px);
   padding: 15px 15px calc(env(safe-area-inset-bottom) + 10px) 15px;
 }
 
-.input-group { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+.input-group { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
 
-.mini-event-card {
-  padding: 8px 12px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.1);
+input, button, select {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
+  color: white; padding: 10px; border-radius: 10px; outline: none; font-size: 0.9rem;
 }
 
-input, button {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  padding: 12px;
-  border-radius: 12px;
-}
+select option { background: #333; color: white; }
 
-/* GRUMPY EKLE BUTONU */
-button.primary {
-  background: #fdfdfd;
-  color: #333;
-  font-weight: bold;
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+button.primary { background: white; color: #333; font-weight: bold; border: none; flex-grow: 1; }
 
-#eventColor { width: 45px; height: 45px; padding: 2px; border-radius: 50%; }
 .empty { visibility: hidden; }
 </style>
 </head>
@@ -134,26 +80,29 @@ button.primary {
       <button onclick="changeMonth(1)">▶</button>
     </div>
     <div style="display:flex; gap:10px;">
-      <input type="color" id="mainColorPicker" style="width:30px; height:30px; border-radius:50%;">
+      <input type="color" id="mainColorPicker" style="width:30px; height:30px; border-radius:50%; padding:0; border:none;">
       <label for="bgInput" style="cursor: pointer; font-size: 1.2rem;">🖼️</label>
       <input type="file" id="bgInput" accept="image/*">
     </div>
   </header>
 
   <div style="flex-grow:1; display:flex; flex-direction:column;">
-    <div style="display:grid; grid-template-columns:repeat(7,1fr); text-align:center; padding:10px 0; font-size:0.8rem; opacity:0.7;">
+    <div style="display:grid; grid-template-columns:repeat(7,1fr); text-align:center; padding:10px 0; font-size:0.7rem; opacity:0.6;">
       <div>Pzt</div><div>Sal</div><div>Çar</div><div>Per</div><div>Cum</div><div>Cts</div><div>Paz</div>
     </div>
     <div id="calendar"></div>
   </div>
 
   <div class="bottom-panel">
-    <div id="eventListDetail" style="display:flex; gap:8px; overflow-x:auto; padding-bottom:5px;"></div>
+    <div id="eventListDetail" style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px;"></div>
     <div class="input-group">
-      <input type="color" id="eventColor" value="#a38d7d">
-      <input type="time" id="timeInput">
-      <input type="text" id="textInput" placeholder="Nefret ettiğim bir iş daha..." style="flex-grow: 1;">
-      <button class="primary" onclick="saveEvent()">😾 Ekle</button>
+      <select id="isGrumpy">
+        <option value="false">😊 Normal</option>
+        <option value="true">😾 Can Sıkıcı</option>
+      </select>
+      <input type="time" id="timeInput" style="width: 80px;">
+      <input type="text" id="textInput" placeholder="Planını yaz..." style="flex-grow: 1;">
+      <button class="primary" onclick="saveEvent()">🐾 Ekle</button>
     </div>
   </div>
 </div>
@@ -195,9 +144,10 @@ function renderCalendar(){
     else {
       const dKey = `${y}-${m+1}-${day}`;
       cell.className = "day" + (selectedDate === dKey ? " selected" : "");
-      let html = `<div style="font-weight:bold;">${day}</div>`;
+      let html = `<div style="font-weight:bold; font-size:0.9rem;">${day}</div>`;
       if(events[dKey]) events[dKey].forEach(ev => {
-        html += `<div class="inner-event ${ev.completed ? 'completed' : ''}" style="border-left:3px solid ${ev.color}">${ev.text}</div>`;
+        const emoji = ev.isGrumpy === "true" ? "😾" : "🐈";
+        html += `<div class="inner-event ${ev.completed ? 'completed' : ''}">${emoji} ${ev.text}</div>`;
       });
       cell.innerHTML = html;
       const d = day;
@@ -210,13 +160,16 @@ function renderCalendar(){
 
 function updateEventList(){
   const listDiv = document.getElementById("eventListDetail");
-  listDiv.innerHTML = events[selectedDate] ? "" : "<small style='opacity:0.5;'>Plan yok. Harika. 😾</small>";
+  listDiv.innerHTML = events[selectedDate] ? "" : "<small style='opacity:0.5;'>Huzurlu bir gün...</small>";
   if(events[selectedDate]){
     events[selectedDate].forEach((ev, i) => {
       const card = document.createElement("div");
-      card.className = "mini-event-card" + (ev.completed ? " done" : "");
-      card.style.borderLeft = `4px solid ${ev.color}`;
-      card.innerHTML = `<span onclick="toggleComplete(${i})">${ev.completed ? '😼' : '😾'} ${ev.time} ${ev.text}</span> <b onclick="deleteEvent(${i})" style="margin-left:10px; color:#ff4757;">🐾</b>`;
+      card.style.cssText = "padding:8px 12px; border-radius:12px; background:rgba(255,255,255,0.15); display:flex; align-items:center; gap:8px; font-size:0.85rem; white-space:nowrap; border: 1px solid rgba(255,255,255,0.1);";
+      if(ev.completed) card.style.opacity = "0.4";
+      
+      const emoji = ev.isGrumpy === "true" ? (ev.completed ? "😼" : "😾") : (ev.completed ? "✅" : "🐈");
+      
+      card.innerHTML = `<span onclick="toggleComplete(${i})">${emoji} ${ev.time} ${ev.text}</span> <b onclick="deleteEvent(${i})" style="color:#ff4757; margin-left:5px;">✕</b>`;
       listDiv.appendChild(card);
     });
   }
@@ -225,10 +178,10 @@ function updateEventList(){
 function saveEvent(){
   const time = document.getElementById("timeInput").value;
   const text = document.getElementById("textInput").value;
-  const color = document.getElementById("eventColor").value;
+  const isGrumpy = document.getElementById("isGrumpy").value;
   if(!selectedDate || !time || !text) return;
   events[selectedDate] = events[selectedDate] || [];
-  events[selectedDate].push({time, text, color, completed: false});
+  events[selectedDate].push({time, text, isGrumpy, completed: false});
   localStorage.setItem("events", JSON.stringify(events));
   document.getElementById("textInput").value = "";
   updateEventList(); renderCalendar();
